@@ -1,0 +1,9 @@
+check process starter with pidfile /var/run/starter.charon.pid
+start program = "/bin/systemctl start strongswan.service" with timeout 10 seconds
+stop program = "/bin/systemctl stop strongswan.service"
+
+check process charon with pidfile /var/run/charon.pid
+start program = "/bin/systemctl start strongswan.service" with timeout 10 seconds
+stop program = "/bin/systemctl stop strongswan.service"
+if failed port 500 type udp then restart
+if failed port 4500 type udp then restart

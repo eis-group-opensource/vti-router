@@ -1,0 +1,9 @@
+
+#BEGIN:%VTI%
+conn %VTI%
+        left=%VTI_OIP_LOCAL%
+        right=%VTI_OIP_REMOTE%
+        auto=start
+        mark=%VTI_MARK%
+	forceencaps=yes
+#END:%VTI%

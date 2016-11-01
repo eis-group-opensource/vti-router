@@ -1,0 +1,17 @@
+
+VTI appliance created in EIS Group and published into public domain under GPL licence.
+
+###################################################
+# (c) EIS Group LTD, 2016 (scripts and setup)     #
+# (License) GPL                                   #
+# Donated to OpenSource by EIS Group, 2016.       #
+# Authors: Alexei Roudnev , Andrey Saveliev       #
+#                                                 #
+#       open-source@eisgroup.com                  #
+#  or   aprudnev@gmail.com                        #
+#  URL; http://eisgroup.com                       #
+###################################################
+
+Software is based on OpenSource Linux software and is provided ‘As Is’, no guarantees.
+
+

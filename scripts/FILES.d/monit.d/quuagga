@@ -1,0 +1,15 @@
+check process zebra with pidfile /var/run/quagga/zebra.pid
+start program = "/bin/systemctl start zebra.service" with timeout 10 seconds
+stop program = "/bin/systemctl stop  zebra.service"
+if failed port 2601 then restart
+
+check process ospfd with pidfile /var/run/quagga/ospfd.pid
+start program = "/bin/systemctl start ospfd.service" with timeout 10 seconds
+stop program = "/bin/systemctl stop ospfd.service"
+if failed port 2604 then restart
+
+check process bgpd with pidfile /var/run/quagga/bgpd.pid
+start program = "/bin/systemctl start bgpd.service" with timeout 10 seconds
+stop program = "/bin/systemctl stop bgpd.service"
+if failed port 179 then restart
+

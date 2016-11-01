@@ -1,0 +1,4 @@
+check process snmpd with pidfile /var/run/net-snmp/snmpd.pid
+start program = "/bin/systemctl start snmpd.service" with timeout 10 seconds
+stop program = "/bin/systemctl stop snmpd.service"
+if failed port 161 type udp then restart
