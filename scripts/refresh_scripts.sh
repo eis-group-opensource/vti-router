@@ -9,7 +9,7 @@
 #  or   aprudnev@gmail.com                        #
 #  URL; http://eisgroup.com                       #
 ###################################################
-
+#
 cp FILES.d/strongswan/*.sh /etc/strongswan/.
 cp FILES.d/quagga/*.sh /etc/quagga/.
 if [ ! -d /usr/local/scripts ]
