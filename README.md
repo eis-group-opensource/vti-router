@@ -103,4 +103,15 @@ but contains our code and was carefully tested in different conditions).
 
 I used this (https://gist.github.com/heri16/2f59d22d1d5980796bfb) document as initial startig point; it was a huge help for us (even if it has only basic changes required for the production support).
 
+## UPDATE - AZURE connectivity.
+
+You must use VTI_ADD.sh and add 2 options for azure:
+
+(Script will ask):
+VTI_O1="ikelifetime=28800s"
+VTI_O2="keyexchange=ikev2"
+
+For BGP,  it must be ebgp-multihop .
+
+Next version wil have it embedded.
 
