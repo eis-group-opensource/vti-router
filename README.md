@@ -12,7 +12,7 @@ and if necessary extra quagga supported routing protocols) and keep IPSEC connec
 It is tested with AWS in production environment and (with all these scripts and changes we did on standard CentOS7) is very stable (counted as production ready in our environments).
 System allows automated parsing of AWS VPN descriptions, or manual VTI description. 
 
-Documentation sources are held on Google Drive to allow easy collaboration - https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfLW9ZNzY1clJfTnM .
+Documentation sources are held on Google Drive to allow easy collaboration - https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s
 
 ### Prerequisites
 
@@ -65,6 +65,7 @@ system has access to Internet, then run
   DOCS - local copy of documentation, sources at https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s
   OVF files can be downloaded from https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s (see VTI-ROUTER-V01 folder).
 
+See 'Implementation' document for extra details.
 ## Contributing
 
 Project includes both, Appliance and Scripts (which are used inside it). I expect that appliance will not change too often (when changed, v01 will be changed to v02 and so on),
