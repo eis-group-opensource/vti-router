@@ -14,6 +14,9 @@ System allows automated parsing of AWS VPN descriptions, or manual VTI descripti
 
 Documentation sources are held on Google Drive to allow easy collaboration - https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s
 
+Ready to use application (CentOS7 with all installed software) is available for download here (root pwd GitHub.2016, change it ASAP once deployed):
+- https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfLW9ZNzY1clJfTnM
+
 ### Prerequisites
 
 See Introduction in DOCS section,. In short, you need 2 networks, one DMZ (or INSIDE) and one OUTSIDE, and need private (Vmware) cloud with access to both, OR 
@@ -27,9 +30,7 @@ You need static IP in both networks (maybe, can use DHCP inside). For serious us
 This project contains 2 parts - scripts and files (here), and Virtual Appliance, ready to run. Appliance moved out of the project file structure to simplify
 management.
 
-First appliance version is kept on google drive under this url:
 
-https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfLW9ZNzY1clJfTnM
 
 Future versions can me moved to GigHub using Large Files support, but wil be held in different project (vti-router-images)
 
@@ -63,12 +64,11 @@ system has access to Internet, then run
 ## Directories
   scripts - VTI system scripts; can be copied as is to /usr/local/scripts
   
-  DOCS - local copy of documentation (documentation sources, available for comments, are at https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s 
-  
-  OVF files can be downloaded from https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfLW9ZNzY1clJfTnM 
-  
+  DOCS - local copy of documentation
+    
 
 See 'Implementation' document for extra details.
+
 ## Contributing
 
 Project includes both, Appliance and Scripts (which are used inside it). I expect that appliance will not change too often (when changed, v01 will be changed to v02 and so on),
