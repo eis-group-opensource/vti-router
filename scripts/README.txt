@@ -51,31 +51,44 @@ You may want, then, to manually edit /etc/quagga files.
  -nobgp blocks changes in bgpd.conf even if bgp specified in properties
  
 
+You can enter VTI instedas of '(cd /usr/local/src; ./VTI_OPS.sh).
+
 Normal procedure is:
 
-- copy aws file into WORK, for example, lab20-aws-1.txt
+- copy aws file into /usr/local/scripts/WORK, for example, lab20-aws-1.txt
 - Prepare vti
-   ./VTI_ADDAWS.sh WORK/lab20-aws-1.txt
+   cd /usr/local/scripts && ./VTI_ADDAWS.sh WORK/lab20-aws-1.txt
 - Check files
    cat WORK/`hostname -s`.d/vti*.properties
 - Add vti-s
-   ./VTI_OPS.sh -list
-   ./VTI_OPS.sh -add vti1
-   ./VTI_OPS.sh -add vti2
-- restart swan
-   service strongswan force-reload
+   VTI -list
+   VTI -add vti1
+   VTI -add vti2
+   VTI -list
+
+- Enable this tunnels
+   VTI -enable vti1 vti2
+
 - check results
-  ./VTI_OPS.sh -status
+  VTI -status
 
 You can disable tunnel
-  ./VTI_OPS.sh -reload -disable vti1
+  VTI -disable vti1
 
 and enable it later
-  ./VTI_OPS.sh -reload -enable vti1
+  VTI -enable vti1
 
-(Syntax may change, for example I plan to make add|remove|... commands without -)
+Normally, you do not need to restart strongswan and quagga (system reload them smoothly).
 
-(Multiple vti as an option was not well tested)
+VTI is just alias for
+
+ (cd /usr/local/scripts && ./VTI_OPS.sh)
+
+refresh_scripts.sh allows to refresh system scripts from this copy in different place.
+update_kernel.sh should update old standard kernel into the strongswan-compatible version.
+
+if you make parsing on teh different place (not /usr/local/scripts), then SYNC_AVAIL.sh script required to make parsed properties to be available for the VTI command.
+
 
 
 
