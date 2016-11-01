@@ -62,8 +62,11 @@ system has access to Internet, then run
 
 ## Directories
   scripts - VTI system scripts; can be copied as is to /usr/local/scripts
-  DOCS - local copy of documentation, sources at https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s
-  OVF files can be downloaded from https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s (see VTI-ROUTER-V01 folder).
+  
+  DOCS - local copy of documentation (documentation sources, available for comments, are at https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s 
+  
+  OVF files can be downloaded from https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfLW9ZNzY1clJfTnM 
+  
 
 See 'Implementation' document for extra details.
 ## Contributing
