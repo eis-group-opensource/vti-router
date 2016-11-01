@@ -12,14 +12,15 @@ and if necessary extra quagga supported routing protocols) and keep IPSEC connec
 It is tested with AWS in production environment and (with all these scripts and changes we did on standard CentOS7) is very stable (counted as production ready in our environments).
 System allows automated parsing of AWS VPN descriptions, or manual VTI description. 
 
-Documentation sources are held on Google Drive to allow easy collaboration - https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s
+Documentation sources are held on Google Drive to allow easy collaboration 
+- https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s
 
 Ready to use application (CentOS7 with all installed software) is available for download here (root pwd GitHub.2016, change it ASAP once deployed):
 - https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfLW9ZNzY1clJfTnM
 
 ### Prerequisites
 
-See Introduction in DOCS section,. In short, you need 2 networks, one DMZ (or INSIDE) and one OUTSIDE, and need private (Vmware) cloud with access to both, OR 
+See Introduction in DOCS section. In short, you need 2 networks, one DMZ (or INSIDE) and one OUTSIDE, and need private (Vmware) cloud with access to both, OR 
 you need Hardware / Virtual Linux CentOS 7, connected to both DMZ (or INSIDE) and OUTSIDE networks. Router do not use OUTSIDE for default routing so it is relatively safe against scans and attacks 
 (and do not create a hole into the network, and in addition we recommend using DMZ and not INSIDE network for internal connection).
 
@@ -39,6 +40,7 @@ Future versions can me moved to GigHub using Large Files support, but wil be hel
 See installation example in DOCS section in 'Introduction', and see detailed description of the system components in DOCS section in 'Implementation'. 
 
 There are 2 ways to install it:
+
 (1) Import appliance from ovf file into Vmware (or compatible) cloud. Login as a root using password provided with appliance (GitHub.2016 for now). 
 Change password. cd to ~/scripts; run initial setup as
 
@@ -81,7 +83,7 @@ Ubuntu version can be interesting (through we do not support Ubuntu in our Linux
 
 ## Versioning
 
-<Major>.<Minor> numbers to be used, with extra tags for specific (Ubuntu for example) versions.
+Major.Minor numbers will be used, with extra tags for specific (Ubuntu for example) versions.
 We will keep major versions for appliance, and minor for scripts (so scripts 1.20 for example can be always applied on appliance 1.0).
 
 
@@ -89,8 +91,6 @@ We will keep major versions for appliance, and minor for scripts (so scripts 1.2
 
 * **Alexei Roudnev** - *Initial work* - aprudnev@gmail.com
 * **EIS Group open source group** - open-source@eisgroup.com
-
-I used this (https://gist.github.com/heri16/2f59d22d1d5980796bfb) document as initial startig point; it was a huge help for us (even if it has only basic changes required for the production support).
 
 
 ## License
@@ -100,5 +100,7 @@ but contains our code and was carefully tested in different conditions).
 
 
 ## Acknowledgments
+
+I used this (https://gist.github.com/heri16/2f59d22d1d5980796bfb) document as initial startig point; it was a huge help for us (even if it has only basic changes required for the production support).
 
 
