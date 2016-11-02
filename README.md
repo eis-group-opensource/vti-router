@@ -3,6 +3,7 @@
 VTI IPSEC router with AWS and AZURE compatibility
 
 ## Getting Started
+This is linux router, compatible with Azure and AWS IPSEC VPN's. 
 
 See DOCS directory, 'Introduction' document. In short, this is Virtual Appliance 
 (but we post scripts separately so you can recreate it) which works as a router,
@@ -53,6 +54,8 @@ system has access to Internet, then run
    ./update_kernel.sh
    
    (Modify it as required, as something may change in time).
+  
+  Create symlink ln -s /usr/local/scripts ~/scripts .
   
   Restart, cd /usr/local/scripts; run ./INITIAL_SETUP.sh and select Reinstall option. 
   
@@ -105,6 +108,16 @@ I used this (https://gist.github.com/heri16/2f59d22d1d5980796bfb) document as in
 
 ## UPDATE - AZURE connectivity.
 
+
+Updated VTI_ADD.sh has now AZURE mode (just answer AZURE when it ask about provider), which adds necessary options for VTI (and propose options for BGP). 
+It is tested and works with Azure pretty well, aside of azure gateway restart time, which can be up to 1 hour (so be patient when testing).
+
+On positive side, azure BGP reconnection time is about few seconds (compared with 5 minutes in AWS); on negative, they support multihop EBGP only and
+routing must be planned carefully, plus their gateway has so long restarting time, that it looks as failure sometimes. 
+BGP with their bultihop BGP need careful planning, of course.
+
+-- Previous update, obsolete now:
+
 You must use VTI_ADD.sh and add 2 options for azure:
 
 (Script will ask):
@@ -113,5 +126,12 @@ VTI_O2="keyexchange=ikev2"
 
 For BGP,  it must be ebgp-multihop .
 
-Next version wil have it embedded.
+Next version will have it embedded.
+
+
+
+
+
+
+
 
