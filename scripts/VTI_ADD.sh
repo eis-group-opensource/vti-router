@@ -32,8 +32,12 @@ ask() {
 	if [ "$X" = "" ]
 	then
 		eval $var='"$default"'
-	else
+	else if [ "$X" = "#" ]
+	     then
+	     	eval $var='""'
+	     else
 		eval $var='"$X"'
+	     fi
 	fi
 }
 HOST=`hostname -s`
@@ -52,7 +56,11 @@ case $1 in
 	RDIR=$1
 	shift
 	;;
-*)	opt=0
+"")	opt=0
+	;;
+*)
+	echo "Usage: $0 [-d directory] [-r reverse-directory]"
+	exit 1
 	;;
 esac
 done
@@ -103,12 +111,56 @@ VTI_IIP_LOCAL="$VTI_IIP_LOCAL"
 
 ask VTI_IIP_REMOTE "" "Inside IP of tunnel, remote, without /"
 VTI_IIP_REMOTE="$VTI_IIP_REMOTE"
+
+ask VTI_IIP_PREFIX "/30" "Netmask prefix with / (/30 means 255.255.255.252, and so on)"
 #
 ask VTI_PSK "" "Shared Secret"
 #
 VTI_MARK=`echo $VTI | sed 's/^vti//;s/$/0/'`
-VTI_MARK=`bc <<< "obase=8; $VTI_MARK"
+VTI_MARK=`bc <<< "obase=8; $VTI_MARK"`
 ask VTI_MARK "$VTI_MARK" "MARK for this VTI, must be different on different VTI"
+
+#
+ask VTI_PROVIDER ""                     "Enter provider - AZURE, AWS - for pre-configured settings. Enter to use defaults"
+case "$VTI_PROVIDER" in 
+AZURE)	
+	VTI_O1="keyingtries=%forever"
+	VTI_O2="ikelifetime=28800s"
+	VTI_O3="keyexchange=ikev2"
+	VTI_BGP1="route-map from_azure in"
+	VTI_BGP2="ebgp-multihop"
+	echo " Added
+	VTI_O1=$VTI_O1
+	VTI_O2=$VTI_O2
+	VTI_O3=$VTI_O3
+	VTI_BGP1=$VTI_BGP1
+	VTI_BGP2=$VTI_BGP2
+	
+	You can change them later"
+	;;
+AWS)    VTI_BGP1="route-map from_aws in"
+	VTI_O1="keyingtries=%forever"
+		echo " Added
+		VTI_O1=$VTI_O1
+		VTI_BGP1=$VTI_BGP1
+		
+		You can change them later"
+
+	;;
+"")	VTI_O1="keyingtries=%forever"
+	;;
+*)	echo "Unknown provider $VTI_PROVIDER, skipped"
+	;;
+esac
+#
+echo "You can add up to 5 connection options in format key=value . No syntax check here."
+#
+ask VTI_O1 "$VTI_O1" 	 		 "Option 1. Enter # to skip"
+ask VTI_O2 "$VTI_O2"                     "Option 2. Enter # to skip"
+ask VTI_O3 "$VTI_O3"                     "Option 3. Enter # to skip"
+ask VTI_O4 "$VTI_O4"                     "Option 4. Enter # to skip"
+ask VTI_O5 "$VTI_O5"                     "Option 5. Enter # to skip"
+
 
 echo "Now enter BGP information if we use it"
 ask VTI_BGP_REMOTE_AS "" "Enter AS of remote neighbor (ENTER if no BGP)"
@@ -117,21 +169,25 @@ then
 	ask VTI_BGP_LOCAL_AS  "" "Enter AS of our system"
 	ask VTI_BGP_REMOTE_IP "$VTI_IIP_REMOTE" "Enter IP of neighbor"
 	ask VTI_BGP_LOCAL_IP  "$VTI_IIP_LOCAL" "Enter local IP for BGP"
+	#
+	#
+	#
+	echo "You can add up to 5 bgp options  here (they added with neighbor $VTI_BGP_REMOTE_IP). No syntax check here."
+	#
+	ask VTI_BGP1 "$VTI_BGP1" 	 	     "neighbor $VTI_BGP_REMOTE_IP Option 1. Enter # to skip"
+	ask VTI_BGP2 "$VTI_BGP2"                     "neighbor $VTI_BGP_REMOTE_IP Option 2. Enter # to skip"
+	ask VTI_BGP3 "$VTI_BGP3"                     "neighbor $VTI_BGP_REMOTE_IP Option 3. Enter # to skip"
+	ask VTI_BGP4 "$VTI_BGP4"                     "neighbor $VTI_BGP_REMOTE_IP Option 4. Enter # to skip"
+	ask VTI_BGP5 "$VTI_BGP5"                     "neighbor $VTI_BGP_REMOTE_IP Option 5. Enter # to skip"
 fi
-#
-echo "You can add up to 5 connection options in format key=value . No syntax check here."
-#
-ask VTI_O1 "keyingtries=%forever" "Option 1. Enter # to skip"
-ask VTI_O2 ""                     "Option 2."
-ask VTI_O3 ""                     "Option 3"
-ask VTI_O4 ""                     "Option 4"
-ask VTI_O5 ""                     "Option 5"
 
 #
 # Now add netmasks
 #
-VTI_IP_LOCAl="$VTI_IP_LOCAL/30"
-VTI_IP_REMOTE="$VTI_IP_REMOTE/30"
+VTI_IIP_LOCAL="$VTI_IIP_LOCAL$VTI_IIP_PREFIX"
+VTI_IIP_REMOTE="$VTI_IIP_REMOTE$VTI_IIP_PREFIX"
+echo "We adjusted addresses as VTI_IIP_LOCAL=$VTI_IIP_LOCAL and VTI_IIP_REMOTE=$VTI_IIP_REMOTE"
+#
 #
 # Create REVERSE properties if requested, first, so we can abort if number is used
 #

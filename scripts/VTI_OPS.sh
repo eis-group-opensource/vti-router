@@ -226,16 +226,27 @@ EOF
 		then
 			echo "Attention - different BGP as numbers, $bgp != $VTI_BGP_LOCAL_AS"
                 fi
-		echo "quagga: Adding neighbor $VTI_BGP_REMOTE_IP remote-as $VTI_BGP_REMOTE_AS"
-		vtysh <<EOF
+                bo=""
+		echo "quagga: Adding neighbor $VTI_BGP_REMOTE_IP remote-as $VTI_BGP_REMOTE_AS route map from_aws"
+		( cat <<EOF
 		conf t
 			router bgp $bgp
 				neighbor $VTI_BGP_REMOTE_IP remote-as $VTI_BGP_REMOTE_AS
 				neighbor $VTI_BGP_REMOTE_IP local-as $VTI_BGP_LOCAL_AS
+EOF
+		for bo in "$VTI_BGP1" "$VTI_BGP2" "$VTI_BGP3" "$VTI_BGP4" "$VTI_BGP5"
+		do
+			if [[ "$bo" != "" ]]
+			then
+				echo "	neighbor $VTI_BGP_REMOTE_IP $bo"
+			fi
+		done
+		cat <<EOF
 				exit
 			exit
 		write mem
 EOF
+		) | vtysh
 	fi
 	# end BGP
 	strongswan rereadall
