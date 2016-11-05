@@ -106,6 +106,11 @@ but contains our code and was carefully tested in different conditions).
 
 I used this (https://gist.github.com/heri16/2f59d22d1d5980796bfb) document as initial startig point; it was a huge help for us (even if it has only basic changes required for the production support).
 
+## UPDATE - restart_vti.sh adapted for AZURE
+We can nopt ping remote VTI end in azure, so health script restarted vti tunnels. To fix it,
+it now check inboud traffic on interface, and if it exists, do not restart  even
+if it can not ping.
+
 ## UPDATE - AZURE connectivity.
 
 
@@ -115,6 +120,7 @@ It is tested and works with Azure pretty well, aside of azure gateway restart ti
 On positive side, azure BGP reconnection time is about few seconds (compared with 5 minutes in AWS); on negative, they support multihop EBGP only and
 routing must be planned carefully, plus their gateway has so long restarting time, that it looks as failure sometimes. 
 BGP with their bultihop BGP need careful planning, of course.
+
 
 -- Previous update, obsolete now:
 
