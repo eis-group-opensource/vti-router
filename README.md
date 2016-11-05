@@ -107,8 +107,8 @@ but contains our code and was carefully tested in different conditions).
 I used this (https://gist.github.com/heri16/2f59d22d1d5980796bfb) document as initial startig point; it was a huge help for us (even if it has only basic changes required for the production support).
 
 ## UPDATE - restart_vti.sh adapted for AZURE
-We can nopt ping remote VTI end in azure, so health script restarted vti tunnels. To fix it,
-it now check inboud traffic on interface, and if it exists, do not restart  even
+We can not ping remote VTI end in azure, so health script restarted good vti tunnels. To fix it,
+it now check inboud traffic on interface, and if it exists, do not restart,  even
 if it can not ping.
 
 ## UPDATE - AZURE connectivity.
