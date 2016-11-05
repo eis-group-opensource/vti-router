@@ -26,12 +26,21 @@ do
     then
     	vti=`echo $conn | sed 's/\..*$//'`
 	ip=`ifconfig $vti | sed -n "s/^.*destination //p"`
+	#
+	# In case of AZURE, remote IP can be not pingable
+	# So we compare RX stats in 10 seconds (or while ping try to send pings)
+	# If RX is different == there is inbound traffic in interface == it is healthy
+	# Else, if no RX traffic and no pings, restart
+	before=`ifconfig $vti | grep RX`
 	n=0
 	if [[ "$ip" != "" ]]
 	then
-		n=`ping -r -n -c 4 -q $ip | grep received | awk '{print $4;}'`
+		n=`ping -r -n -c 5 -q $ip | grep received | awk '{print $4;}'`
+	else
+		sleep 10
 	fi
-    	if [[ $n != "0" && $n != "" ]]
+	after=`ifconfig $vti | grep RX`
+    	if [[ "$before" != "$after" ||  $n != "0" && $n != "" ]]
     	then
     		echo $conn OK
     	else
