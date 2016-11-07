@@ -13,6 +13,9 @@
 # This script check conenctions which gave up
 # and restarts them
 #
+(
+flock -n 200 || exit 1
+
 for i in /etc/strongswan/vti.d/vti*.conf
 do
  # set -x
@@ -55,4 +58,4 @@ do
  fi
 done
 
-
+) 200>/tmp/restart_vti.lock
