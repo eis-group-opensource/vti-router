@@ -22,7 +22,7 @@ do
     swanctl -i -c $conn  >> /tmp/restarts.log &
     echo "Restartig - $conn"
  else
-    if swanctl -list-sas | grep $conn | grep -q INSTALLED
+    if swanctl -list-sas | grep -q $conn
     then
     	vti=`echo $conn | sed 's/\..*$//'`
 	ip=`ifconfig $vti | sed -n "s/^.*destination //p"`
@@ -36,6 +36,10 @@ do
 	if [[ "$ip" != "" ]]
 	then
 		n=`ping -r -n -c 5 -q $ip | grep received | awk '{print $4;}'`
+	        if [[ "$n" = "" ]]
+		then
+			sleep 10
+		fi
 	else
 		sleep 10
 	fi

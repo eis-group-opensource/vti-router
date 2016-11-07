@@ -111,6 +111,15 @@ We can not ping remote VTI end in azure, so health script restarted good vti tun
 it now check inbound traffic on interface, and if it exists, do not restart,  even
 if it can not ping.
 
+One more update - I find out, that it can freeze in ETSBLISHED (but not INSTALLED) state, so
+script now do not try to find out connection state - if it is active, then it test pings and
+inbound traffic, and if no any exists for 20 seconds, then reset tunnel.
+
+Ideally it should remember previous state and if no RX apckets come for 10 minutes, ONLY then
+restart.
+
+PINGS did not work, because you must explicitly add route to our end of VTI into Azure VNET.
+
 ## UPDATE - AZURE connectivity.
 
 
