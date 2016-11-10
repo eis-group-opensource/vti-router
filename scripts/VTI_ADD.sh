@@ -124,19 +124,27 @@ ask VTI_MARK "$VTI_MARK" "MARK for this VTI, must be different on different VTI"
 ask VTI_PROVIDER ""                     "Enter provider - AZURE, AWS - for pre-configured settings. Enter to use defaults"
 case "$VTI_PROVIDER" in 
 AZURE)	
-	VTI_O1="keyingtries=%forever"
-	VTI_O2="ikelifetime=28800s"
-	VTI_O3="keyexchange=ikev2"
+	VTI_O1="ike=aes256-sha1-modp1024"
+        VTI_O2="esp=aes128-sha1,aes256-sha1!"
+        VTI_O3="keyexchange=ike"
+        VTI_O4="ikelifetime=10800s"
+        VTI_O5="keylife=3600s"
+ 	VTI_O6="keyingtries=%forever"
+
+
 	VTI_BGP1="route-map from_azure in"
 	VTI_BGP2="ebgp-multihop"
 	echo " Added
 	VTI_O1=$VTI_O1
 	VTI_O2=$VTI_O2
 	VTI_O3=$VTI_O3
+	VTI_O4=$VTI_O4
+	VTI_O5=$VTI_O5
+	VTI_O6=$VTI_O6
 	VTI_BGP1=$VTI_BGP1
 	VTI_BGP2=$VTI_BGP2
 	
-	You can change them later"
+	You can change them later or ADD extra options."
 	;;
 AWS)    VTI_BGP1="route-map from_aws in"
 	VTI_O1="keyingtries=%forever"
@@ -160,6 +168,7 @@ ask VTI_O2 "$VTI_O2"                     "Option 2. Enter # to skip"
 ask VTI_O3 "$VTI_O3"                     "Option 3. Enter # to skip"
 ask VTI_O4 "$VTI_O4"                     "Option 4. Enter # to skip"
 ask VTI_O5 "$VTI_O5"                     "Option 5. Enter # to skip"
+ask VTI_O5 "$VTI_O6"                     "Option 6. Enter # to skip"
 
 
 echo "Now enter BGP information if we use it"

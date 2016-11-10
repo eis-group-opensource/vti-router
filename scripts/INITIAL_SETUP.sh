@@ -27,7 +27,7 @@ then
 	exit 1
 fi
 
-# default values, substituted by ansible
+# default values,
 domain='net.exigengroup.com'
 dnsservers='10.25.168.31 10.23.5.31 192.168.8.24 '
 #

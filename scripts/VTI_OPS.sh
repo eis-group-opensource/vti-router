@@ -203,6 +203,7 @@ conn $conn
 	$VTI_O3
 	$VTI_O4
 	$VTI_O5
+	$VTI_O6
 #END:$v
 EOF
 	

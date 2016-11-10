@@ -130,7 +130,19 @@ On positive side, azure BGP reconnection time is about few seconds (compared wit
 routing must be planned carefully, plus their gateway has so long restarting time, that it looks as failure sometimes. 
 BGP with their bultihop BGP need careful planning, of course.
 
+For azure, use your own local IP with /32 mask, and set up remote IP (on interface) as IP of
+their BGP gateway, configure your local IP on AZURE as IP of the tunnel (one you set up here).
 
+This way ping will work for far end of tunnel (as this end is BGP router and for them, your IP is tunnel IP).
+
+AZURE specific options are now:
+(They are added as VTI_O1 - VTI_O6):
+        ike=aes256-sha1-modp1024
+        esp=aes128-sha1,aes256-sha1!
+        keyexchange=ike
+        ikelifetime=10800s
+        keyingtries=%forever
+)
 -- Previous update, obsolete now:
 
 You must use VTI_ADD.sh and add 2 options for azure:
