@@ -128,7 +128,7 @@ It is tested and works with Azure pretty well, aside of azure gateway restart ti
 
 On positive side, azure BGP reconnection time is about few seconds (compared with 5 minutes in AWS); on negative, they support multihop EBGP only and
 routing must be planned carefully, plus their gateway has so long restarting time, that it looks as failure sometimes. 
-BGP with their bultihop BGP need careful planning, of course.
+BGP with their multihop BGP need careful planning, of course.
 
 For azure, use your own local IP with /32 mask, and set up remote IP (on interface) as IP of
 their BGP gateway, configure your local IP on AZURE as IP of the tunnel (one you set up here).
