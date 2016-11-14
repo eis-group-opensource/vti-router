@@ -136,20 +136,33 @@ their BGP gateway, configure your local IP on AZURE as IP of the tunnel (one you
 This way ping will work for far end of tunnel (as this end is BGP router and for them, your IP is tunnel IP).
 
 AZURE specific options are now:
-(They are added as VTI_O1 - VTI_O6):
+(They are added as VTI_O1 - VTI_O5):
+
         ike=aes256-sha1-modp1024
+
         esp=aes128-sha1,aes256-sha1!
+
         keyexchange=ike
+
         ikelifetime=10800s
+
         keyingtries=%forever
+
+We add bgp multihop and route-map from_azure in, into BGP, too.
+You can modify them manually (in propperties file) or when running VTI_ADD.sh
 )
--- Previous update, obsolete now:
 
-You must use VTI_ADD.sh and add 2 options for azure:
+restart_vti.sh script improved now - it first kills all frozen swanctl 
+as they have a tendency to freeze when something go wrong.
 
-(Script will ask):
-VTI_O1="ikelifetime=28800s"
-VTI_O2="keyexchange=ikev2"
+In addition, we added monitoring for /tmp/vtitrace.log as our discovery is:
+- sometimes, if AZURE decided to REKEY IPSEC before STRONGSWAN wants to do it,
+it (AZURE) starts to rekey every few minutes. It do not cause big issues but cause
+our script to be called every few minutes, and we are not sure, if system
+do not run out of some resources in a week or two; so we recommend, if it is detected 
+(short down then up calls seen in /tmp/vtitrace.log) to restart router or strongswan.
+It usually fix this. Network do not see much problems because of rapid rekeying
+but I would better avoid it anyway. It looks as a bug on azure side.
 
 For BGP,  it must be ebgp-multihop .
 
