@@ -168,7 +168,7 @@ ask VTI_O2 "$VTI_O2"                     "Option 2. Enter # to skip"
 ask VTI_O3 "$VTI_O3"                     "Option 3. Enter # to skip"
 ask VTI_O4 "$VTI_O4"                     "Option 4. Enter # to skip"
 ask VTI_O5 "$VTI_O5"                     "Option 5. Enter # to skip"
-ask VTI_O5 "$VTI_O6"                     "Option 6. Enter # to skip"
+ask VTI_O6 "$VTI_O6"                     "Option 6. Enter # to skip"
 
 
 echo "Now enter BGP information if we use it"
