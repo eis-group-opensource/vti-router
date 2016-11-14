@@ -164,9 +164,6 @@ do not run out of some resources in a week or two; so we recommend, if it is det
 It usually fix this. Network do not see much problems because of rapid rekeying
 but I would better avoid it anyway. It looks as a bug on azure side.
 
-For BGP,  it must be ebgp-multihop .
-
-Next version will have it embedded.
 
 
 
