@@ -244,7 +244,6 @@ echo "Resetting configuration..."
 echo "5. Recreating /etc/sysconfig/network-scripts/route-eth1"
 cat > /etc/sysconfig/network-scripts/route-eth1 <<EOF
 # Created by $0 script `date`
-38.99.17.84/32 via $EXT_GW dev eth1
 EOF
 
 echo "6. Recreating /etc/sysconfig/iptables"
