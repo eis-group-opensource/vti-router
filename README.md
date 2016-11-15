@@ -171,4 +171,8 @@ but I would better avoid it anyway. It looks as a bug on azure side.
 
 
 
-
+## IMAGES
+Image version 2 will be uploaded shortly. Image v1 requires to update scripts, remove 38.99.18.84
+from INITIAL_SETUP.sh script (it created one unnecessary static route), and kernel and strongswan
+update recommended if usingh with AZURE. When updating, make sure that you run on kernel4
+after the update.
