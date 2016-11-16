@@ -167,3 +167,21 @@ but I would better avoid it anyway. It looks as a bug on azure side.
 ## IMAGES
 Image version 2 uploaded. You can find images here (in subfolder) - https://drive.google.com/drive/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s?usp=sharing
 
+## KNOWN BUGS.
+
+1. There is some strange bug in strongswan - when it re-read configuration dynamically, it
+sometimes creates, then, more then one IPSEC SA for the tunnel.
+
+It do not result in immediate problem, but it results in extra calls to the status 
+change script and, in case of AZURE, it may cause permanent (every few minutes) re-keying.
+
+So we recommend to restart strongswan service once configuration changed, new tunnels
+verified, on next appropriate time. Something like
+
+service strongswan stop
+sleep 5
+service strongswan start
+
+Do it if you see more then one INSTALLED SA per some of vti tunnels in VTI -status
+output.
+
