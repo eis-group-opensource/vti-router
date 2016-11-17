@@ -9,9 +9,9 @@ See DOCS directory, 'Introduction' document. In short, this is Virtual Appliance
 (but we post scripts separately so you can recreate it) which works as a router,
 is compatible with IPSEC variant used in both, AWS (Amazon Web Services cloud) and Azure (Microsoft cloud service, for Route based VPN), and called VTI (Virtual Tunnel
 Interface) in Cisco world. System can be imported from ovf template, or build manually from CentOS7. Once done, it can run as a router (with OSPF, BGP, static,
-and if necessary extra quagga supported routing protocols) and keep IPSEC connections with AWS (and possible Azure, not tested in this time yet) using BGP (or other) routing.
-It is tested with AWS in production environment and (with all these scripts and changes we did on standard CentOS7) is very stable (counted as production ready in our environments).
-System allows automated parsing of AWS VPN descriptions, or manual VTI description. 
+and if necessary extra quagga supported routing protocols) and keep IPSEC connections with AWS ior AZURE using BGP (or other) routing.
+It is tested with AWS and AZURE in production environment and (with all these scripts and changes we did on standard CentOS7) is very stable (counted as production ready in our environments).
+System allows automated parsing of AWS VPN descriptions, or manual VTI descriptioni, and knows AZURE specifics. 
 
 Documentation sources are held on Google Drive to allow easy collaboration 
 - https://drive.google.com/drive/u/0/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s
@@ -179,7 +179,9 @@ So we recommend to restart strongswan service once configuration changed, new tu
 verified, on next appropriate time. Something like
 
 service strongswan stop
+
 sleep 5
+
 service strongswan start
 
 Do it if you see more then one INSTALLED SA per some of vti tunnels in VTI -status
