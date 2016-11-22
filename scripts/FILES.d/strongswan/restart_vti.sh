@@ -9,18 +9,31 @@
 #  or   aprudnev@gmail.com                        #
 #  URL; http://eisgroup.com                       #
 ###################################################
+# Options - -
+# 1. Protection against frozen script
+# 
+list=`ps aux | grep swanctl | grep -v grep | awk '{print $2}'`
+if [[ "$list" != "" ]]
+then
+	echo "Some swanctl processes running, we wait 20 seci then kill them"
+	sleep 20
+	kill -9 $list  > /dev/null 2>& 1
+	sleep 1
+fi
 
-# This script check conenctions which gave up
+# This script check connections which gave up
 # and restarts them
+# Additionally it restarts dead vti interfaces (it MAY happen sometimes)
 #
 for i in /etc/strongswan/vti.d/vti*.conf
 do
  # set -x
  conn=`grep '^conn ' $i | awk '{print $2}'`
+ echo -n "$conn... "
  if ! swanctl -list-sas | grep -q $conn 
  then
     swanctl -i -c $conn  >> /tmp/restarts.log &
-    echo "Restartig - $conn"
+    echo "Restarting"
  else
     if swanctl -list-sas | grep -q $conn
     then
@@ -46,17 +59,22 @@ do
 	after=`ifconfig $vti | grep RX`
     	if [[ "$before" != "$after" ||  $n != "0" && $n != "" ]]
     	then
-    		echo $conn OK
+    		echo OK
     	else
-		echo -n $conn OK but no vti, resetting... see /tmp/${vti}_up.log
-                strongswan down $conn > /tmp/${vti}_up.log 2>& 1
-		strongswan up $conn   > /tmp/${vti}_up.log 2>& 1
-		echo DONE
+	(
+		echo " OK but no vti, resetting... see /tmp/${vti}_up.log"
+                echo `date` resetting $conn > /tmp/${vti}_up.log
+		strongswan down $conn >> /tmp/${vti}_up.log 2>& 1
+		sleep 2
+		strongswan up $conn   >> /tmp/${vti}_up.log 2>& 1
+		echo DONE $conn
+	) &
 	fi
     else
-	echo $conn IN PROGRESS
+	echo IN PROGRESS
     fi
  fi
 done
+wait
 
 
