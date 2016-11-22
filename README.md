@@ -155,35 +155,14 @@ You can modify them manually (in propperties file) or when running VTI_ADD.sh
 restart_vti.sh script improved now - it first kills all frozen swanctl 
 as they have a tendency to freeze when something go wrong.
 
-In addition, we added monitoring for /tmp/vtitrace.log as our discovery is:
-- sometimes, if AZURE decided to REKEY IPSEC before STRONGSWAN wants to do it,
-it (AZURE) starts to rekey every few minutes. It do not cause big issues but cause
-our script to be called every few minutes, and we are not sure, if system
-do not run out of some resources in a week or two; so we recommend, if it is detected 
-(short down then up calls seen in /tmp/vtitrace.log) to restart router or strongswan.
-It usually fix this. Network do not see much problems because of rapid rekeying
-but I would better avoid it anyway. It looks as a bug on azure side.
+In addition, we added monitoring for /tmp/vtitrace.log 
+
+VTI_OPS.sh (the same as VTI) fixed to use proper method of configuration updates.
 
 ## IMAGES
 Image version 2 uploaded. You can find images here (in subfolder) - https://drive.google.com/drive/folders/0B4R1SzsWIJVfWm5icWtVTjNJX2s?usp=sharing
 
 ## KNOWN BUGS.
 
-1. There is some strange bug in strongswan - when it re-read configuration dynamically, it
-sometimes creates, then, more then one IPSEC SA for the tunnel.
-
-It do not result in immediate problem, but it results in extra calls to the status 
-change script and, in case of AZURE, it may cause permanent (every few minutes) re-keying.
-
-So we recommend to restart strongswan service once configuration changed, new tunnels
-verified, on next appropriate time. Something like
-
-service strongswan stop
-
-sleep 5
-
-service strongswan start
-
-Do it if you see more then one INSTALLED SA per some of vti tunnels in VTI -status
-output.
+1. FIXED - we must use strongswan update instead of reload. Usig reload caused creating a few more CHILD_SA (IPSEC SA) and confuze AZURE
 

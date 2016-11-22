@@ -120,7 +120,7 @@ case $OP in
 			conn=`grep '^conn' $VDIR/$i.conf | awk '{print $2}'`
 			mkdir -p $VDIR/.DISABLED
 			mv -f $VDIR/$i.conf $VDIR/.DISABLED
-			strongswan reload
+			strongswan update
 			sleep 5
 			strongswan down $conn
 			ifconfig $i down
@@ -138,9 +138,11 @@ case $OP in
 		then
 			mv -f $VDIR/.DISABLED/$i.conf $VDIR/
 			echo $i enabled
-			strongswan reload
+			strongswan update
 			sleep 5
 			conn=`grep '^conn' $VDIR/$i.conf | awk '{print $2}'`
+			strongswan down $conn
+			sleep 2	
 			strongswan up $conn
 			(( cnt++ ))
 		else
@@ -301,12 +303,12 @@ then
     then
 	strongswan rereadsecrets
 	sleep 4
-        strongswan reload
+        strongswan update
 	#systemctl force-reload strongswan
     else
 	echo "Check new config and run 
-	strongswan rereadall
-	strongswan reload
+	strongswan rereadsecrets
+	strongswan update
 	# systemctl force-reload strongswan"
     fi
 else
