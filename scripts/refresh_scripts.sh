@@ -12,6 +12,7 @@
 
 cp FILES.d/strongswan/*.sh /etc/strongswan/.
 cp FILES.d/quagga/*.sh /etc/quagga/.
+cp FILES.d/sysctl.d/* /etc/sysctl.d/. && sysctl -p
 if [ ! -d /usr/local/scripts ]
 then
 	(cd ~ && mv scripts /usr/local/. && ln -s /usr/local/scripts .)

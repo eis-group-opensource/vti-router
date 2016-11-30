@@ -166,3 +166,11 @@ Image version 2 uploaded. You can find images here (in subfolder) - https://driv
 
 1. FIXED - we must use strongswan update instead of reload. Usig reload caused creating a few more CHILD_SA (IPSEC SA) and confuze AZURE
 
+2. FIXED. We now set up rp_filter option = 0 for all vti interfaces and for eth0, 
+It is 1 for eth1. So assymmetrical traffic allowed everywhere
+except eth1 (to protect against attacks).
+IT is done in both ipsec-vti.sh script and by sysctl.d configs (see FILES.d subdirectories)
+
+NOTICE - CentOS7 sort sysctl files by file name, so names started with 01 - 049 run 
+before system defaults (which has number 50). So we renamed our configs into 8N .
+

@@ -71,7 +71,9 @@ case "${PLUTO_VERB}" in
     up-client)
        	$IP tunnel add ${VTI_INTERFACE} mode vti local ${PLUTO_ME} remote ${PLUTO_PEER} okey ${PLUTO_MARK_OUT_ARR[0]} ikey ${PLUTO_MARK_IN_ARR[0]}
         sysctl -w net.ipv4.conf.${VTI_INTERFACE}.disable_policy=1
-        sysctl -w net.ipv4.conf.${VTI_INTERFACE}.rp_filter=2 || sysctl -w net.ipv4.conf.${VTI_INTERFACE}.rp_filter=0
+	# We have many cases when we need this check to be disabled. SO we set up 0 not 2.
+	#sysctl -w net.ipv4.conf.${VTI_INTERFACE}.rp_filter=2 || sysctl -w net.ipv4.conf.${VTI_INTERFACE}.rp_filter=0
+	sysctl -w net.ipv4.conf.${VTI_INTERFACE}.rp_filter=0
         $IP addr add ${VTI_LOCALADDR} remote ${VTI_REMOTEADDR} dev ${VTI_INTERFACE}
         $IP link set ${VTI_INTERFACE} up mtu $VTI_MTU
         $IPTABLES -t mangle -I FORWARD -o ${VTI_INTERFACE} -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
