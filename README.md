@@ -174,3 +174,5 @@ IT is done in both ipsec-vti.sh script and by sysctl.d configs (see FILES.d subd
 NOTICE - CentOS7 sort sysctl files by file name, so names started with 01 - 049 run 
 before system defaults (which has number 50). So we renamed our configs into 8N .
 
+As on 3-May-2017, we run 10 VTI routers with more then 40 tunnels, with AWS, AZURE and VTI/VTI, without a single glitch or failure.
+
